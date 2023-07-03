@@ -3,12 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import BuscarVitrine from './BuscarVitrine';
+import FormCadastro from './Cadastro';
+import CadastroLogin from './CadastroLogin';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <CadastroLogin />
     <App />
-  </React.StrictMode>
+    <BuscarVitrine/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
