@@ -41,7 +41,7 @@ function BuscarVitrine() {
           </div>
           <h3 className="nome">{produto.nome}</h3>
           <p className="preco">Preço: R$ {produto.preco}</p>
-          <button className="btn-carrinho" type="button">Adicionar ao carrinho</button>
+          <button className="btn-addcarrinho" type="button">Adicionar ao carrinho</button>
           
         </div>
       ))}

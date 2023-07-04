@@ -63,18 +63,18 @@ function CadastroLogin() {
       if (response.ok) {
         setIsLoggedIn(true);
       } else {
-        setIsLoggedIn(false);
+        setIsLoggedIn(false);         
       }
       // Limpar os campos do formulário
       setEmail('');
       setSenha('');
     } catch (error) {
       console.error(error);
-    }
-  };
+    }    
+  };  
 
   return (
-    <div className="App">
+    <div className="formulario">
       <h1>Cadastro e Login de Usuário</h1>
 
       {!isLoggedIn ? (
@@ -83,11 +83,11 @@ function CadastroLogin() {
               <h2>Cadastro</h2>
               <form onSubmit={handleCadastroSubmit}>
                 <label>
-                  Nome:
+                  Nome: 
                   <input type="text" value={nome} onChange={handleNomeChange} />
                 </label>
                 <label>
-                  Email:
+                  Email: 
                   <input type="email" value={email} onChange={handleEmailChange} />
                 </label>
                 <label>
@@ -108,14 +108,19 @@ function CadastroLogin() {
                   Senha:
                   <input type="password" value={senha} onChange={handleSenhaChange} />
                 </label>
-                <button type="submit">Login</button>
+                <button type="submit">Login</button>                             
               </form>
             </div>
-        </div>
-      ) : (
-        <h2>Você está logado!</h2>
+        </div> 
+      ) : (  
+        <form>     
+          <label>
+            <h2>Você está logado!</h2>
+            <button type="submit">Sair</button>   
+          </label>
+        </form>       
       )}
-    </div>
+    </div>    
   );
 }
 
