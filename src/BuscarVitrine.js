@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import './styles.css';
+import { BsFillCartPlusFill } from 'react-icons/bs';
+
 
 function BuscarVitrine() {
   const [produtos, setProdutos] = useState([]);
@@ -32,17 +35,20 @@ function BuscarVitrine() {
         
       {/* Renderiza a lista de produtos */}
       {produtos.map((produto) => (
-        <div key={produto.id}>
+        <div key={produto.id} className="produto-item">
           <div className="image">
             {/* Renderiza as imagens do produto */}
             {produto.imagens.map((imagem, index) => (
-              <img key={imagem.index} src={imagem.url} alt={produto.nome} />
+              <img key={index} src={imagem.url} alt={produto.nome} />
             ))}
           </div>
           <h3 className="nome">{produto.nome}</h3>
-          <p className="preco">Preço: R$ {produto.preco}</p>
-          <button className="btn-carrinho" type="button">Adicionar ao carrinho</button>
-          
+          <p className="descricao">{produto.descricao}</p>
+          <p className="preco">Preço: R$ {produto.preco.toFixed(2)}</p>
+          <p className='Qtde'>Qtde:{produto.quantidade}</p>
+          <button className="btn-carrinho" type="button">
+          <BsFillCartPlusFill className="btn-icon" /> Adicionar ao carrinho
+          </button>
         </div>
       ))}
     </div>
