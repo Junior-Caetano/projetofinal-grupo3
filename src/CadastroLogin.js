@@ -84,15 +84,15 @@ function CadastroLogin() {
               <form onSubmit={handleCadastroSubmit}>
                 <label>
                   Nome: 
-                  <input type="text" value={nome} onChange={handleNomeChange} />
+                  <input type="text" required value={nome} onChange={handleNomeChange} />
                 </label>
                 <label>
                   Email: 
-                  <input type="email" value={email} onChange={handleEmailChange} />
+                  <input type="email" required value={email} onChange={handleEmailChange} />
                 </label>
                 <label>
                   Senha:
-                  <input type="password" value={senha} onChange={handleSenhaChange} />
+                  <input type="password" required value={senha} onChange={handleSenhaChange} />
                 </label>
                 <button type="submit">Cadastrar</button>
               </form>
@@ -102,11 +102,11 @@ function CadastroLogin() {
               <form onSubmit={handleLoginSubmit}>
                 <label>
                   Email:
-                  <input type="email" value={email} onChange={handleEmailChange} />
+                  <input type="email" required value={email} onChange={handleEmailChange} />
                 </label>
                 <label>
                   Senha:
-                  <input type="password" value={senha} onChange={handleSenhaChange} />
+                  <input type="password" required value={senha} onChange={handleSenhaChange} />
                 </label>
                 <button type="submit">Login</button>                             
               </form>

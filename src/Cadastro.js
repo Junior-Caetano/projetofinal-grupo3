@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 
 function FormCadastro() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
-  const handleNomeChange = (event) => {
+  const NomeChange = (event) => {
     setNome(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const EmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleSenhaChange = (event) => {
+  const SenhaChange = (event) => {
     setSenha(event.target.value);
   };
 
@@ -44,24 +44,40 @@ function FormCadastro() {
   };
 
   return (
-    <div className="App">
-      <h1>Cadastro de Usuário</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nome:
-          <input type="text" value={nome} onChange={handleNomeChange} />
-        </label>
-        <label>
-          Email:
-          <input type="email" value={email} onChange={handleEmailChange} />
-        </label>
-        <label>
-          Senha:
-          <input type="password" value={senha} onChange={handleSenhaChange} />
-        </label>
-        <button type="submit">Cadastrar</button>
-      </form>
+    <div className="container">
+      <div className="container-login">
+            <div className="form-login">
+            <span className="form-title"> Cadastrar </span>
+              <form className="login-form" onSubmit={handleSubmit}>
+                <div className="form-input">
+                  <label>Nome:</label>
+                  <input className="input"  type="text" required value={nome} onChange={NomeChange} /> 
+                  <span className="focus-input" ></span>  
+                </div> 
+                <div className="form-input">   
+                  <label>Email:</label>
+                  <input className="input" type="email" required value={email} onChange={EmailChange} />
+                  <span className="focus-input" ></span>
+                </div>
+                <div className="form-input">       
+                  <label>Senha:</label>
+                  <input className="input"  type="password" required value={senha} onChange={SenhaChange} />
+                  <span className="focus-input" ></span>
+                </div>        
+                <div className="container-form-btn">
+                  <button type="submit" className="form-btn">Cadastrar</button>
+                </div>
+                <div className="texto-center">
+                  <span className="texto1">Já possui conta? </span>
+                  <a className="texto2" href="#">
+                    Entrar
+                  </a>
+                </div>
+              </form>
+            </div>
+       </div>
     </div>
+    
   );
 }
 
