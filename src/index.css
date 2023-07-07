@@ -209,3 +209,11 @@ body, html {
   color: #007DFE;  
   text-decoration: none;
 }
+
+.erro-msg{
+  color: red;
+}
+
+.sucesso-msg{
+  color: green;
+}

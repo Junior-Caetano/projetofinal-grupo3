@@ -5,6 +5,12 @@ function FormLogin(){
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loginError, setLoginError] = useState(false);
+
+    const handleLogout = () => {
+      localStorage.removeItem("isLoggedIn");
+      setIsLoggedIn(false);
+    };    
 
     const EmailChange = (event) => {
             setEmail(event.target.value);
@@ -32,26 +38,31 @@ function FormLogin(){
           console.log(data); // Exibe a resposta da API no console
           if (response.ok) {
             setIsLoggedIn(true);
+            localStorage.setItem("isLoggedIn", "true");
+            setLoginError(false);
           } else {
-            setIsLoggedIn(false);         
+            setIsLoggedIn(false);  
+            localStorage.setItem("isLoggedIn", "false");
+            setLoginError(true);
           }
           // Limpar os campos do formulário
           setEmail('');
           setSenha('');
         } catch (error) {
           console.error(error);
-        }    
+        }   
       };  
-    
+  
     return (
          <div className="container">
-            {!isLoggedIn ? (
+            {!localStorage.getItem("isLoggedIn") || localStorage.getItem("isLoggedIn") === "false" ?  (
           <div className="container-login">
             <div className="form-login">
               <form className="login-form" onSubmit={handleSubmit}>
                 <span className="form-title"> Bem vindo </span>
-    
-                    
+                {loginError && (
+                  <h4 className="erro-msg">Dados inválidos. Verifique seu email e senha.</h4>
+                )}                    
                 <div className="form-input">
                   <label>Email</label>
                   <input
@@ -83,7 +94,7 @@ function FormLogin(){
             <form>     
               <label>
                 <h2>Você está logado!</h2>
-                <button className="form-btn" type="submit">Sair</button>   
+                <button className="form-btn" onClick={handleLogout} >Sair</button>   
               </label>
             </form>       
           )}
