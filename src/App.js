@@ -4,6 +4,7 @@ import './styles.css';
 function BuscarId() {
   const [produto, setDados] = useState();
   
+  
   useEffect(() => {
     // Função para buscar os dados da API
     async function buscarDados() {
@@ -28,6 +29,19 @@ function BuscarId() {
   if (!produto) {
     return <div>Carregando...</div>;
   }  
+
+  return (
+    <div>
+      {/* Renderiza os dados */}
+      <h1>{produto.nome}</h1>
+      <p>Descrição: {produto.descricao}</p>
+      <p>Qtde.{produto.quantidade}</p>
+      <p>R$ {produto.preco}</p>
+      {produto.imagens.map((imagens, index) => (
+        <img key={index} src={imagens.url} alt={`Imagem ${index}`} />
+      ))}    
+    </div>
+  );
   
 }
 export default BuscarId;

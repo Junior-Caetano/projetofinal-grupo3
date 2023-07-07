@@ -12,8 +12,6 @@ import CadastroLogin from './CadastroLogin';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CadastroLogin />
-    <App />
     <BuscarVitrine/>
     </React.StrictMode>
 );
