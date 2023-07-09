@@ -1,8 +1,15 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom"
 import "./header.css"
+import { BsFillCartPlusFill } from 'react-icons/bs';
+
 
 function Header() {
+  const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
+  const carrinhoSalvo = localStorage.getItem('carrinho');
+
+
+    
   return (
     <header>
       <div className="header-container">
@@ -14,7 +21,8 @@ function Header() {
             <Link to="/login">Login</Link>
             <Link to="/cadastro">Cadastro</Link>
             <Link to="/carrinho">
-              <img src="/carrinho.png" alt="Carrinho" />             
+              <img src="/carrinho.png" alt="Carrinho" />
+              <span className="quantidade-itens">{quantidadeItensCarrinho}</span>            
             </Link>
           </nav>          
         </div>

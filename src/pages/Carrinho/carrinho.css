@@ -5,7 +5,7 @@
     padding: 80px 2%;
 }
 
-.cart-container h2 {
+.cart-container h1 {
     text-align: center;
     font-size: 38px;
     margin-bottom: 38px;
@@ -27,8 +27,8 @@
     gap: 15px;
 }
 
-.cart-container .qtd span{
-    width: 45px !important;
+.btn-quantidade{
+    width: 45px;
     background-color: #007DFE;
     color: #fff;
     height: 45px;
@@ -37,6 +37,19 @@
     justify-content: center;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.btn-limpar{
+    width: 60px;
+    background-color: #fe0000;
+    color: #fff;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+
 }
 
 .cart-container .qtd span svg{
