@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
+import "./index.css";
 
 function FormCadastro() {
   const [nome, setNome] = useState("");
@@ -51,8 +53,9 @@ function FormCadastro() {
 
   return (
     <div className="container">
-      <div className="container-login">
+      <div className="container-login">        
         <div className="form-login">
+        <img src='/logo.png'></img>
           <span className="form-title"> Cadastrar </span>
           <form className="login-form" onSubmit={handleSubmit}>
             {errorMessage && <h4 className="erro-msg">{errorMessage}</h4>}
@@ -78,7 +81,7 @@ function FormCadastro() {
             <div className="texto-center">
               <span className="texto1">Já possui conta? </span>
               <div className="texto2">
-                <a href="./Login.js">Entrar</a>
+              <Link to="/Login">Entrar</Link>
               </div>
             </div>
           </form>

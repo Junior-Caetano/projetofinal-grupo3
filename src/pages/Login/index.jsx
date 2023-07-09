@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
 import "./index.css";
 
 function FormLogin(){
@@ -58,6 +59,7 @@ function FormLogin(){
             {!localStorage.getItem("isLoggedIn") || localStorage.getItem("isLoggedIn") === "false" ?  (
           <div className="container-login">
             <div className="form-login">
+              <img src='/logo.png'></img>
               <form className="login-form" onSubmit={handleSubmit}>
                 <span className="form-title"> Bem vindo </span>
                 {loginError && (
@@ -82,9 +84,7 @@ function FormLogin(){
     
                 <div className="texto-center">
                   <span className="texto1">Não possui conta? </span>
-                  <a className="texto2" href="#">
-                    Criar conta
-                  </a>
+                  <Link to='/cadastro'>Criar conta</Link> <br/>
                 </div>
               </form>
             </div>

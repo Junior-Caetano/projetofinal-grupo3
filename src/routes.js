@@ -1,13 +1,23 @@
-import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import FormCadastro from './pages/Cadastro';
+import FormLogin from './pages/Login';
+import Vitrine from './pages/Vitrine';
+import Home from './pages/Home';
 
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import FormLogin from './Login';
 
-const Routes = () => (
-<BrowserRouter>
-    <Switch>
-        <Route exact path="" component={FormLogin()} />
 
-    </Switch> 
-</BrowserRouter>
-);
+function Rotas() {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route  path="/Home" element={Home}/>
+          <Route exact path="/Login" element={FormLogin} />
+          <Route path="/Cadastro" element={FormCadastro} />
+          <Route path="/Vitrine" element={Vitrine} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+  
+
+export default Rotas;
