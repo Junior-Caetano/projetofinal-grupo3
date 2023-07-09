@@ -122,6 +122,22 @@ body, html {
   background: #007DFE;
 }
 
+.form-sair {
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 35px;
+  background: #007DFE;
+  margin-left: 5px;
+}
+
 .form-btn:hover {
   cursor: pointer;
   color: #000000;

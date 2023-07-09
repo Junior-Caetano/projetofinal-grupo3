@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './home.css';
 import { BsFillCartPlusFill } from 'react-icons/bs';
 
-
 function Home() {
   const [produtos, setProdutos] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [descricaoProduto, setDescricaoProduto] = useState('');
-  
+  const [carrinho, setCarrinho] = useState(() => {    
+    const carrinhoSalvo = localStorage.getItem('carrinho');
+    if (carrinhoSalvo) {
+      return JSON.parse(carrinhoSalvo);
+    }
+    return [];
+  });
 
   function selecionarProduto(produto) {
     setProdutoSelecionado(produto);
@@ -29,6 +34,34 @@ function Home() {
     }
   }
 
+  
+
+  useEffect(() => {
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  }, [carrinho]);
+
+  function limparCarrinho() {
+    setCarrinho([]);
+    localStorage.removeItem('carrinho');
+  }
+  
+
+  function adicionarAoCarrinho(produto) {
+    const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
+    if (produtoNoCarrinho) {
+      const novoCarrinho = carrinho.map((item) => {
+        if (item.id === produto.id) {
+          return { ...item, quantidade: item.quantidade + 1 };
+        }
+        return item;
+      });
+      setCarrinho(novoCarrinho);
+    } else {
+      setCarrinho([...carrinho, { ...produto, quantidade: 1 }]);
+    }
+  }
+
+  
   function renderDetalhesProduto() {
     if (!produtoSelecionado) {
       return null;
@@ -41,19 +74,13 @@ function Home() {
         ))}
         <h2 className="titulo-produto">{produtoSelecionado.nome}</h2>
         <p className="descricao-produto">{descricaoProduto}</p>
-        <p className='preco-renderizacao'> Preço: R$ {produtoSelecionado.preco.toFixed(2)}</p>
-        <button className="btn-carrinho" type="button">
-                <BsFillCartPlusFill className="btn-icon" /> Adicionar ao carrinho
-        </button>
+        <p className='preco-renderizacao'>Preço: R$ {produtoSelecionado.preco.toFixed(2)}</p>
         <button className='botton-rederização-tela' onClick={() => setProdutoSelecionado(null)}>Voltar</button>
-        
-
       </div>
     );
   }
 
   useEffect(() => {
-    
     async function buscarProdutos() {
       try {
         const response = await fetch("https://infracode-api.onrender.com/produtos");
@@ -72,7 +99,6 @@ function Home() {
     buscarProdutos();
   }, []);
 
-
   if (produtoSelecionado) {
     return (
       <div>
@@ -82,30 +108,29 @@ function Home() {
   }
 
   return (
-    
-    <div >
+    <div>
       <h1 className='nome-da-loja'>Nossos Produtos</h1>
-      <div className="center"> 
+      <div className="center">
         <div className="produto">
           {/* Renderiza a lista de produtos */}
           {produtos.map((produto) => (
-            <div key={produto.id} className="produto-item" >
+            <div key={produto.id} className="produto-item">
               <div className="image" onClick={() => selecionarProduto(produto)}>
                 {/* Renderiza a primeira imagem do produto */}
                 <img src={produto.imagens[1].url} alt={produto.nome} />
               </div>
-              
               <h3 className="nome" onClick={() => selecionarProduto(produto)}>{produto.nome}</h3>
               <p className="descricao">{produto.descricao}</p>
-              <p className="preco">Preço: R$ {produto.preco.toFixed(2)}</p>
-              <p className='Qtde'>{produto.quantidade}</p>
-              <button className="btn-carrinho" type="button">
-                <BsFillCartPlusFill className="btn-icon" /> Adicionar ao carrinho
-              </button>
+              <p className="preco">Preço: R$ {produto.preco.toFixed(2)}</p>       
+                <button className="btn-carrinho" onClick={() => adicionarAoCarrinho(produto)} type="button">
+                  <BsFillCartPlusFill className="btn-icon" /> Adicionar ao carrinho
+                </button>
+              
             </div>
-          ))}
+          ))};
         </div>
       </div>
+      
     </div>
   );
 }

@@ -77,6 +77,7 @@ function FormCadastro() {
             </div>
             <div className="container-form-btn">
               <button type="submit" className="form-btn">Cadastrar</button>
+              
             </div>
             <div className="texto-center">
               <span className="texto1">Já possui conta? </span>
