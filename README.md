@@ -34,6 +34,7 @@ cd projetofinal-grupo3
 npm install react-scripts
 npm install react-router-dom
 npm install react-icons
+npm install jquery --save
 
 # executar o projeto
 npm start

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import "./carrinho.css";
 import { BsFillCartPlusFill } from 'react-icons/bs';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 function Carrinho() {
   const [produtos, setProdutos] = useState([]);  
@@ -18,6 +20,7 @@ function Carrinho() {
   }, [carrinho]);
 
   function limparCarrinho() {
+    $('.quantidade-itens').text(0);
     setCarrinho([]);
     localStorage.removeItem('carrinho');
   }
@@ -25,6 +28,7 @@ function Carrinho() {
 
   function adicionarAoCarrinho(produto) {
     const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
+    $('.quantidade-itens').text(parseInt($('.quantidade-itens').text())+1);
     if (produtoNoCarrinho) {
       const novoCarrinho = carrinho.map((item) => {
         if (item.id === produto.id) {
@@ -40,6 +44,7 @@ function Carrinho() {
 
   function removerDoCarrinho(produto) {
     const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
+    $('.quantidade-itens').text(parseInt($('.quantidade-itens').text())-1);
     if (produtoNoCarrinho && produtoNoCarrinho.quantidade > 1) {
       const novoCarrinho = carrinho.map((item) => {
         if (item.id === produto.id) {

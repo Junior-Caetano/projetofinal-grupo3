@@ -39,7 +39,7 @@ function Header() {
 
   function handleLogout() {
     localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
+    window.location.reload(true);
   };
 
   return (
@@ -47,9 +47,9 @@ function Header() {
       <div className="header-container">
         <div className="header-container-wrap">
           <div className="logo">
-            <Link to="/">
+            <a href="/">
               <img src="/logo.png" alt="Academy Store" />
-            </Link>
+            </a>
           </div>
           <nav className="nav-menu">
             {isLoggedIn ? (

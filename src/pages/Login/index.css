@@ -138,9 +138,16 @@ body, html {
   margin-left: 5px;
 }
 
+.form-sair:hover {
+  cursor: pointer;
+  color: #000000;
+  
+}
+
 .form-btn:hover {
   cursor: pointer;
   color: #000000;
+  
 }
 
 .texto-center {

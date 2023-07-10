@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './home.css';
 import { BsFillCartPlusFill } from 'react-icons/bs';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 function Home() {
   const [produtos, setProdutos] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [descricaoProduto, setDescricaoProduto] = useState('');
+  const [filtro, setFiltro] = useState('');
   const [carrinho, setCarrinho] = useState(() => {    
     const carrinhoSalvo = localStorage.getItem('carrinho');
     if (carrinhoSalvo) {
@@ -41,6 +44,7 @@ function Home() {
 
   function adicionarAoCarrinho(produto) {
     const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
+    $('.quantidade-itens').text(parseInt($('.quantidade-itens').text())+1);
     if (produtoNoCarrinho) {
       const novoCarrinho = carrinho.map((item) => {
         if (item.id === produto.id) {
@@ -61,47 +65,69 @@ function Home() {
 
     return (
       <div className="detalhes-produto">
+        <div className='tela-renderizacao'>
         {produtoSelecionado.imagens.map((imagens, index) => (
           <img className='imagem-renderizacao' key={index} src={imagens.url} alt={`Imagem ${index}`} />
         ))}
+        </div>
+        <div className='detalhes-direito'>
+          <div className='titulo-h2'>
         <h2 className="titulo-produto">{produtoSelecionado.nome}</h2>
+        </div>
         <p className="descricao-produto">{descricaoProduto}</p>
-        <p className='preco-renderizacao'>Preço: R$ {produtoSelecionado.preco.toFixed(2)}</p>
-        <button className='botton-rederização-tela' onClick={() => setProdutoSelecionado(null)}>Voltar</button>        
+        <div className='detalhes-preco'>
+        <p className='preco-renderizacao'> Preço: R$ {produtoSelecionado.preco.toFixed(2)}</p>
+        </div>
+        <button className="btn-carrinho" onClick={() => adicionarAoCarrinho(produtoSelecionado)} type="button">
+                  <BsFillCartPlusFill className="btn-icon" /> Adicionar ao carrinho
+                </button>
+            </div>
       </div>
     );
   }
 
   useEffect(() => {
+    // Função assíncrona para buscar a lista de produtos na API
     async function buscarProdutos() {
       try {
-        const response = await fetch("https://infracode-api.onrender.com/produtos");
-
+        const response = await fetch('https://infracode-api.onrender.com/produtos');
+  
         if (!response.ok) {
-          throw new Error("Erro ao exibir produtos");
+          throw new Error('Erro ao buscar produtos da API');
         }
-
+  
         const produtosJson = await response.json();
-        setProdutos(produtosJson);
+  
+        const produtosFiltrados = produtosJson.filter(produto =>
+          produto.nome.toLowerCase().includes(filtro.toLowerCase())
+        );
+  
+        setProdutos(produtosFiltrados);
       } catch (error) {
         console.error(error);
       }
     }
-
+  
     buscarProdutos();
-  }, []);
-
-      if (produtoSelecionado) {
-        return (
-          <div>
-            {renderDetalhesProduto()}
-          </div>
-        );
-      }
+  }, [filtro]);
+  
+ 
+  if (produtoSelecionado) {
+    return (
+      <div>
+        {renderDetalhesProduto()}
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h1 className='nome-da-loja'>Nossos Produtos</h1>
+    <div className='container'>
+    <div className='pesquisa'>
+      <h1 className='nome-da-loja'>Nosso produtos</h1>
+      <div className='nome-da-loja'>
+      <input  type="text"  value={filtro}  onChange={e => setFiltro(e.target.value)}  placeholder="Pesquisar produto"  className="barra-pesquisa"/>
+    </div>   
+    </div>
       <div className="center">
         <div className="produto">
           {/* Renderiza a lista de produtos */}

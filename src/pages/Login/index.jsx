@@ -51,6 +51,7 @@ function FormLogin() {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("nome", data.nome); // Salva o nome no localStorage
         setLoginError(false);
+        window.location.reload(true);
       } else {
         setIsLoggedIn(false);
         localStorage.setItem("isLoggedIn", "false");
