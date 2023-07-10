@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./index.css";
+import Home from '../../pages/Home';
 
 function FormLogin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [nome, setNome] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -20,6 +22,13 @@ function FormLogin() {
   const SenhaChange = (event) => {
     setSenha(event.target.value);
   };
+
+  useEffect(() => {
+    const savedNome = localStorage.getItem("nome");
+    if (savedNome) {
+      setNome(savedNome);
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,6 +49,7 @@ function FormLogin() {
       if (response.ok) {
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("nome", data.nome); // Salva o nome no localStorage
         setLoginError(false);
       } else {
         setIsLoggedIn(false);
@@ -91,12 +101,9 @@ function FormLogin() {
         </div>
 
       ) : (
-        <form>
-          <label>
-            <h2>Você está logado!</h2>
-            <Link to='/' className="form-sair" onClick={handleLogout} >Sair</Link>
-          </label>
-        </form>
+        <div>
+        <Home/>
+        </div>
       )}
     </div>
   );

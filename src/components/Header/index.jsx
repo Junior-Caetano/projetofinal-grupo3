@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, setState } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import FormLogin from "../../pages/Login";
 
 function Header() {
-  const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
+  const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState();
+  const [nome, setNome] = useState("");
   const carrinhoSalvo = localStorage.getItem("carrinho");
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const [setIsLoggedIn] = useState(false);
-  const [carrinho, setCarrinho] = useState(() => {
+  const [carrinho] = useState(() => {
     const carrinhoSalvo = localStorage.getItem("carrinho");
     if (carrinhoSalvo) {
       return JSON.parse(carrinhoSalvo);
@@ -16,6 +17,11 @@ function Header() {
     return [];
   });
 
+  useEffect(() => {
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    calcularQuantidadeItensCarrinho();
+  }, [carrinho]);
+  
   function calcularQuantidadeItensCarrinho() {
     let quantidade = 0;
     carrinho.forEach((item) => {
@@ -23,16 +29,13 @@ function Header() {
     });
     setQuantidadeItensCarrinho(quantidade);
   }
-
-  function adicionarItemAoCarrinho(item) {
-    const novoCarrinho = [...carrinho, item];
-    setCarrinho(novoCarrinho);
-  }
-
+ 
   useEffect(() => {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    calcularQuantidadeItensCarrinho();
-  }, [carrinho]);
+    const savedNome = localStorage.getItem("nome");
+    if (savedNome) {
+      setNome(savedNome);
+    }
+  }, []);
 
   function handleLogout() {
     localStorage.removeItem("isLoggedIn");
@@ -51,7 +54,7 @@ function Header() {
           <nav className="nav-menu">
             {isLoggedIn ? (
               <>
-                <span>Olá XXX</span>
+                <span className="nome">Bem vindo </span>
                 <Link to='/' className="form-sair" onClick={handleLogout} >Sair</Link>
                 <Link to="/carrinho">
                   <img src="/carrinho.png" alt="Carrinho" />

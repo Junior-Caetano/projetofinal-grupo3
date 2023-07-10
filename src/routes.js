@@ -3,7 +3,7 @@ import FormCadastro from './pages/Cadastro';
 import FormLogin from './pages/Login';
 import Vitrine from './pages/Vitrine';
 import Home from './pages/Home';
-
+import Produto from './pages/Produto';
 
 
 function Rotas() {

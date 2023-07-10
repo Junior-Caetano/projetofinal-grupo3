@@ -3,9 +3,7 @@ import "./carrinho.css";
 import { BsFillCartPlusFill } from 'react-icons/bs';
 
 function Carrinho() {
-  const [produtos, setProdutos] = useState([]);
-  const [produtoSelecionado, setProdutoSelecionado] = useState(null);
-  const [descricaoProduto, setDescricaoProduto] = useState('');
+  const [produtos, setProdutos] = useState([]);  
   const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
   const [carrinho, setCarrinho] = useState(() => {    
     const carrinhoSalvo = localStorage.getItem('carrinho');
@@ -73,30 +71,51 @@ function Carrinho() {
 }, [carrinho]);
 
   return(<div className="carrinho">
-      <h2>Carrinho de Compras</h2>
+      <h2>Seu carrinho</h2>
       {carrinho.length > 0 ? (
         <div>
           {carrinho.map((item) => (
             <div key={item.id} className="carrinho-item">
-              <p>{item.nome}</p>
+              <h3>{item.nome}</h3>
               <div className="carrinho-controls">
                 <button className="btn-quantidade" onClick={() => removerDoCarrinho(item)}>-</button>
                 <span className="quantidade">{item.quantidade}</span>
                 <button className="btn-quantidade" onClick={() => adicionarAoCarrinho(item)}>+</button>
               </div>
-              <p>Preço: R$ {(item.preco * item.quantidade).toFixed(2)}</p>
+              <p>R$ {(item.preco).toFixed(2)}</p>
+              <p>Preço total: R$ {(item.preco * item.quantidade).toFixed(2)}</p>
               
             </div>
           ))}
-          <h3>Total de produtos ({quantidadeItensCarrinho})</h3> 
-          <h3>Valor Total: R$ {calcularValorTotal().toFixed(2)}</h3>
-          <button className="btn-limpar" onClick={() => limparCarrinho()}>Limpar Carrinho</button>
+          <div className="total">
+            <h3>Total de {quantidadeItensCarrinho} itens</h3> 
+            <h3>Valor Total: R$ {calcularValorTotal().toFixed(2)}</h3>
+          </div>
+            <div className="btn-total" > 
+              <button className="carrinho-btn" >Finalizar</button> 
+              <button className="btn-limpar" onClick={() => limparCarrinho()}>Limpar Carrinho</button>              
+            </div>
         </div>
       ) : (
-        <p>O carrinho está vazio</p>
+        <p className='carrinho'> O carrinho está vazio</p>
       )}
     </div>
   );
 };
 
 export default Carrinho;
+
+export function adicionarAoCarrinho(produto, carrinho, setCarrinho) {
+  const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
+  if (produtoNoCarrinho) {
+    const novoCarrinho = carrinho.map((item) => {
+      if (item.id === produto.id) {
+        return { ...item, quantidade: item.quantidade + 1 };
+      }
+      return item;
+    });
+    setCarrinho(novoCarrinho);
+  } else {
+    setCarrinho([...carrinho, { ...produto, quantidade: 1 }]);
+  }
+}

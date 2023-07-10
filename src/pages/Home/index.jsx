@@ -32,19 +32,12 @@ function Home() {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  
+  }  
 
   useEffect(() => {
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }, [carrinho]);
 
-  function limparCarrinho() {
-    setCarrinho([]);
-    localStorage.removeItem('carrinho');
-  }
-  
 
   function adicionarAoCarrinho(produto) {
     const produtoNoCarrinho = carrinho.find((item) => item.id === produto.id);
@@ -60,7 +53,6 @@ function Home() {
       setCarrinho([...carrinho, { ...produto, quantidade: 1 }]);
     }
   }
-
   
   function renderDetalhesProduto() {
     if (!produtoSelecionado) {
@@ -75,7 +67,7 @@ function Home() {
         <h2 className="titulo-produto">{produtoSelecionado.nome}</h2>
         <p className="descricao-produto">{descricaoProduto}</p>
         <p className='preco-renderizacao'>Preço: R$ {produtoSelecionado.preco.toFixed(2)}</p>
-        <button className='botton-rederização-tela' onClick={() => setProdutoSelecionado(null)}>Voltar</button>
+        <button className='botton-rederização-tela' onClick={() => setProdutoSelecionado(null)}>Voltar</button>        
       </div>
     );
   }
@@ -99,13 +91,13 @@ function Home() {
     buscarProdutos();
   }, []);
 
-  if (produtoSelecionado) {
-    return (
-      <div>
-        {renderDetalhesProduto()}
-      </div>
-    );
-  }
+      if (produtoSelecionado) {
+        return (
+          <div>
+            {renderDetalhesProduto()}
+          </div>
+        );
+      }
 
   return (
     <div>
@@ -127,7 +119,7 @@ function Home() {
                 </button>
               
             </div>
-          ))};
+          ))}
         </div>
       </div>
       

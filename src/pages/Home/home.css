@@ -31,8 +31,7 @@
   margin: 20px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 50vh;
+  align-items: center; 
   color: #007DFE;
 }
 
@@ -40,8 +39,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-
 }
 
 
