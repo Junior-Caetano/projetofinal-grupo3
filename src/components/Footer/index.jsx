@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import AnoFooter from "../AnoFooter";
 import './footer.css'
 
 function Footer() {
@@ -32,9 +33,9 @@ function Footer() {
         </div>
 
         <div className='copyright'>
-          <p>&copy; 2023 Academy Store - Todos os direitos reservados</p>
+          <p>&copy; <AnoFooter/> Academy Store - Todos os direitos reservados</p>
         </div>
-      </div>
+      </div>      
     </footer>
   );
 }
